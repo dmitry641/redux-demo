@@ -5,6 +5,7 @@ import {
   HIDE_LOADER,
   SHOW_ALERT,
   SHOW_LOADER,
+  REQUEST_POSTS,
 } from "./types";
 
 export function createPost(post) {
@@ -15,22 +16,25 @@ export function createPost(post) {
 }
 
 export function fetchPosts() {
-  return async (dispatch) => {
-    dispatch(showLoader());
-    try {
-      const res = await fetch(
-        "https://jsonplaceholder.typicode.com/posts?_limit=5"
-      );
-      const json = await res.json();
-      setTimeout(() => {
-        dispatch({ type: FETCH_POSTS, payload: json });
-        dispatch(hideLoader());
-      }, 2000);
-    } catch (error) {
-      dispatch(showAlert("Error"));
-      dispatch(hideLoader());
-    }
+  return {
+    type: REQUEST_POSTS,
   };
+  // return async (dispatch) => {
+  //   dispatch(showLoader());
+  //   try {
+  //     const res = await fetch(
+  //       "https://jsonplaceholder.typicode.com/posts?_limit=5"
+  //     );
+  //     const json = await res.json();
+  //     setTimeout(() => {
+  //       dispatch({ type: FETCH_POSTS, payload: json });
+  //       dispatch(hideLoader());
+  //     }, 2000);
+  //   } catch (error) {
+  //     dispatch(showAlert("Error"));
+  //     dispatch(hideLoader());
+  //   }
+  // };
 }
 
 export function showLoader() {
